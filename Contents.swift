@@ -49,3 +49,22 @@ func partsOfSpeech(for text: String) {
 }
 
 
+func namedEntityRecognition(for text: String) {
+  tagger.string = text
+  let range = NSRange(location: 0, length: text.utf16.count)
+  let tags: [NSLinguisticTag] = [.personalName, .placeName, .organizationName]
+  
+  tagger.enumerateTags(in: range, unit: .word, scheme: .nameType, options: options) { tag, tokenRange, stop in
+    if let tag = tag, tags.contains(tag) {
+      let name = (text as NSString).substring(with: tokenRange)
+      print("\(name): \(tag.rawValue)")
+      
+    }
+  }
+}
+
+determineLanguage(for: quote)
+//tokenizeText(for: quote)
+//lemmatization(for: quote)
+//partsOfSpeech(for: quote)
+//namedEntityRecognition(for: quote)
