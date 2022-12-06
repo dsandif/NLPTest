@@ -13,3 +13,13 @@ func determineLanguage(for text: String) {
   print("The language is \(language!)")
 }
 
+func tokenizeText(for text: String) {
+  tagger.string = text
+  let range = NSRange(location: 0, length: text.utf16.count)
+
+  //print out each unit that's found
+  tagger.enumerateTags(in: range, unit: .word, scheme: .tokenType, options: options) { tag, tokenRange, stop in
+    let word = (text as NSString).substring(with: tokenRange)
+    print(word)
+  }
+}
