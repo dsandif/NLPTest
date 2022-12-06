@@ -23,3 +23,29 @@ func tokenizeText(for text: String) {
     print(word)
   }
 }
+
+func lemmatization(for text: String) {
+  tagger.string = text
+  let range = NSRange(location:0, length: text.utf16.count)
+  
+  //get the root word
+  tagger.enumerateTags(in: range, unit: .word, scheme: .lemma, options: options) { tag, tokenRange, stop in
+    if let lemma = tag?.rawValue {
+      print(lemma)
+    }
+  }
+}
+
+func partsOfSpeech(for text: String) {
+  tagger.string = text
+  let range = NSRange(location: 0, length: text.utf16.count)
+  
+  tagger.enumerateTags(in: range, unit: .word, scheme: .lexicalClass, options: options) { tag, tokenRange, _ in
+    if let tag = tag {
+      let word = (text as NSString).substring(with: tokenRange)
+      print("\(word): \(tag.rawValue)")
+    }
+  }
+}
+
+
