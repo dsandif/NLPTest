@@ -4,7 +4,7 @@ let quote = "Here's to the crazy ones. The misfits. The rebels. The troublemaker
 
 
 let tagger = NSLinguisticTagger(tagSchemes:[.tokenType, .language, .lexicalClass, .nameType, .lemma], options: 0)
-let options: NSLinguisticTagger.Options = [.omitPunctuation, .omitWhitespace, .joinNames]
+let options: NSLinguisticTagger.Options = [.omitPunctuation, .omitWhitespace, .joinNames] // default options
 
 
 func determineLanguage(for text: String) {
@@ -15,7 +15,7 @@ func determineLanguage(for text: String) {
 
 func tokenizeText(for text: String) {
   tagger.string = text
-  let range = NSRange(location: 0, length: text.utf16.count)
+  let range = NSRange(location: 0, length: text.utf16.count) //the range of the text to process
 
   //print out each unit that's found
   tagger.enumerateTags(in: range, unit: .word, scheme: .tokenType, options: options) { tag, tokenRange, stop in
